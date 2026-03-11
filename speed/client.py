@@ -1,37 +1,48 @@
 # client_speed_test.py
+
 import socket
 import time
 
-HOST = "backnetlabs.net.ar"
-PORT = 5001
+SERVER = "backnetlabs.net.ar"
+PORT = 5002
 BUFFER = 65536
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((HOST, PORT))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+print("\nConectando al servidor...\n")
+
+sock.connect((SERVER, PORT))
+
+print("Conectado\n")
+
+start = time.time()
 total_bytes = 0
-start_time = time.time()
-last_time = start_time
 
 try:
+
     while True:
-        data = client.recv(BUFFER)
+
+        t1 = time.time()
+
+        data = sock.recv(BUFFER)
+
+        t2 = time.time()
+
         if not data:
             break
 
         total_bytes += len(data)
 
-        now = time.time()
+        elapsed = time.time() - start
 
-        if now - last_time >= 1:
-            speed = total_bytes / (now - start_time)
-            mbps = (speed * 8) / 1_000_000
+        velocidad = (total_bytes * 8) / (elapsed * 1000000)
 
-            print(f"Velocidad: {mbps:.2f} Mbps")
+        rtt = (t2 - t1) * 1000
 
-            last_time = now
+        print(f"Velocidad: {velocidad:.2f} Mbps | RTT: {rtt:.2f} ms", end="\r")
 
 except KeyboardInterrupt:
-    print("Test detenido")
 
-client.close()
+    print("\nCliente detenido")
+
+sock.close()
