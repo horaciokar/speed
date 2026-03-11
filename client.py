@@ -1,7 +1,7 @@
 import socket
 import time
 
-SERVER = "10.86.110.1"
+SERVER = "backnetlabs.net.ar"
 PORT = 5001
 
 client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)

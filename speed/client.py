@@ -2,7 +2,7 @@
 import socket
 import time
 
-HOST = "10.86.110.1"
+HOST = "backnetlabs.net.ar"
 PORT = 5001
 BUFFER = 65536
 

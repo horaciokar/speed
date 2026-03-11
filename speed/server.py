@@ -2,7 +2,7 @@
 import socket
 
 HOST = "0.0.0.0"
-PORT = 5001
+PORT = 5002
 BUFFER = 65536  # 64 KB
 
 data = b'0' * BUFFER
